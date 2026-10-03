@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOCKA - الملف الشخصي</title>
+    <style>
+        :root {
+            --primary-blue: #1E3A8A;
+            --accent-blue: #3B82F6;
+            --light-blue: #EFF6FF;
+            --bg-color: #F8FAFC;
+            --text-dark: #1E293B;
+            --text-muted: #64748B;
+            --white: #FFFFFF;
+            --border-color: #E2E8F0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* شريط التنقل */
+        navbar {
+            background-color: var(--white);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-blue);
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--accent-blue);
+        }
+
+        /* المحتوى الرئيسي */
+        .container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        /* بطاقة الملف الشخصي */
+        .profile-card {
+            background-color: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            padding: 2.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .avatar-container {
+            position: relative;
+            width: 110px;
+            height: 110px;
+            margin: 0 auto 1.5rem auto;
+        }
+
+        .avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-blue));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 2.5rem;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
+        }
+
+        .profile-name {
+            font-size: 1.75rem;
+            font-weight: bold;
+            color: var(--text-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .profile-id {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            font-family: monospace;
+            letter-spacing: 0.5px;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: var(--light-blue);
+            color: var(--primary-blue);
+            padding: 0.35rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* قسم خيارات الحساب واللوكرات */
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.25rem;
+            margin-bottom: 2rem;
+        }
+
+        .option-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+            transition: all 0.2s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .option-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent-blue);
+            box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.1);
+        }
+
+        .option-card h3 {
+            font-size: 1.1rem;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .option-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* زر تسجيل الخروج */
+        .logout-container {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .btn-logout {
+            background-color: #FEF2F2;
+            color: #DC2626;
+            border: 1px solid #FCA5A5;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-logout:hover {
+            background-color: #DC2626;
+            color: var(--white);
+        }
+
+        @media (max-width: 640px) {
+            .profile-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- شريط التنقل العلوي -->
+    <navbar>
+        <div class="logo">LOCKA</div>
+        <ul class="nav-links">
+            <li><a href="#">الرئيسية</a></li>
+            <li><a href="#" class="active">الملف الشخصي</a></li>
+        </ul>
+    </navbar>
+
+    <!-- المحتوى الرئيسي للملف الشخصي -->
+    <div class="container">
+        
+        <!-- بطاقة المعلومات الشخصية -->
+        <div class="profile-card">
+            <div class="avatar-container">
+                <div class="avatar">ن</div>
+            </div>
+            <h1 class="profile-name">نوره</h1>
+            <p class="profile-id">الرقم الجامعي: 442108932</p>
+            <span class="badge">عضو نشط - مشروع لوكا</span>
+        </div>
+
+        <!-- خيارات الحساب -->
+        <div class="section-title">إدارة الحساب والخدمات</div>
+        <div class="options-grid">
+            <a href="#" class="option-card">
+                <h3>حجوزات اللوكرات النشطة</h3>
+                <p>عرض وتتبع اللوكرات المحجوزة حالياً وتواريخ انتهائها.</p>
+            </a>
+            <a href="#" class="option-card">
+                <h3>سجل الحجوزات السابقة</h3>
+                <p>مراجعة الفواتير والعمليات السابقة بالكامل.</p>
+            </a>
+            <a href="#" class="option-card">
+                <h3>تعديل المعلومات الشخصية</h3>
+                <p>تحديث كلمة المرور، رقم الجوال، والبيانات الخاصة بالحساب.</p>
+            </a>
+            <a href="#" class="option-card">
+                <h3>الإشعارات والتنبيهات</h3>
+                <p>التحكم بتنبيهات انتهاء وقت الحجز والرسائل النصية.</p>
+            </a>
+        </div>
+
+        <!-- زر تسجيل الخروج -->
+        <div class="logout-container">
+            <button class="btn-logout">تسجيل الخروج</button>
+        </div>
+
+    </div>
+
+</body>
+</html>
